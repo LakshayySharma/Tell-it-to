@@ -4,11 +4,12 @@ require("dotenv").config();
 const connection = async () => {
   try {
     await mongoose.connect(
-      process.env.MONGOURI,
+      process.env.LOCALSERVER,
       {
         useUnifiedTopology: true,
         useFindAndModify: false,
         useNewUrlParser: true,
+        useCreateIndex: true,
       },
       () => {
         console.log(`connected to Mongo database`);
