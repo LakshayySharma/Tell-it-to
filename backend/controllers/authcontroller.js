@@ -18,7 +18,10 @@ exports.getAllUsers = async (req, res, next) => {
 
 exports.getOneUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id).populate("stories");
+    const user = await User.findById(req.params.id).populate({
+      path: "stories",
+      select: "title genreP",
+    });
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({
