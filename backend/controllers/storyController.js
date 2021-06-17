@@ -1,9 +1,9 @@
 exports.getStory = async (req, res, next) => {
   try {
-    const story = await Story.findById(req.params.id).populate(
-      "author",
-      "name"
-    );
+    const story = await Story.findById(req.params.id).populate({
+      path: "author",
+      select: "name image ",
+    });
     if (!story) {
       return res.status(400).json({
         message: "Story not found",
@@ -22,7 +22,7 @@ exports.getAllStories = async (req, res, next) => {
   try {
     const stories = await Story.find({}).populate({
       path: "author",
-      select: "name",
+      select: "name image",
     });
     return res.status(200).json({
       stories: stories,
